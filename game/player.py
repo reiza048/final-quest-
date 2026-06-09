@@ -1,18 +1,11 @@
-"""
-game/player.py - Player & Party System
-========================================
-Definisi karakter hero dan party management.
-"""
-
+# Player & Party System
 import math
 import json
 import os
 
 SAVE_FILE = 'savegame.json'
 
-
 class Character:
-    """Satu karakter hero dalam party."""
 
     def __init__(self, name, char_class, level=1):
         self.name = name
@@ -72,7 +65,6 @@ class Character:
         return spells.get(self.char_class, [])
 
     def take_damage(self, damage, element=None):
-        """Terima damage, return actual damage dealt."""
         if self.defending:
             damage = damage // 2
         actual = min(self.hp, max(1, damage))
@@ -83,7 +75,6 @@ class Character:
         return actual
 
     def heal(self, amount):
-        """Heal HP."""
         actual = min(self.max_hp - self.hp, amount)
         self.hp += actual
         if self.hp > 0:
@@ -91,18 +82,15 @@ class Character:
         return actual
 
     def use_mp(self, cost):
-        """Use MP, return True if sufficient."""
         if self.mp >= cost:
             self.mp -= cost
             return True
         return False
 
     def restore_mp(self, amount):
-        """Restore MP."""
         self.mp = min(self.max_mp, self.mp + amount)
 
     def gain_exp(self, amount):
-        """Gain EXP, return True if leveled up."""
         self.exp += amount
         if self.exp >= self.exp_to_next:
             self.level_up()
@@ -110,7 +98,6 @@ class Character:
         return False
 
     def level_up(self):
-        """Level up! Increase stats."""
         self.level += 1
         self.exp -= self.exp_to_next
         self.exp_to_next = self._calc_exp_needed()
@@ -143,7 +130,6 @@ class Character:
             self.spells.append(class_spells[self.level])
 
     def full_restore(self):
-        """Full restore HP/MP."""
         self.hp = self.max_hp
         self.mp = self.max_mp
         self.alive = True
@@ -195,9 +181,7 @@ class Character:
         c.spells = data['spells']
         return c
 
-
 class Party:
-    """Party of heroes."""
 
     def __init__(self):
         self.members = []
@@ -222,7 +206,6 @@ class Party:
 
     @staticmethod
     def create_default_party():
-        """Buat party default dengan 3 hero."""
         party = Party()
         party.add_member(Character("Aric", "warrior", 1))
         party.add_member(Character("Luna", "mage", 1))

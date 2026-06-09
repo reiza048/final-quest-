@@ -1,11 +1,4 @@
-"""
-engine/input_handler.py - Input Handler
-========================================
-Mengelola input keyboard dan mouse.
-"""
-
 import pygame
-
 
 class InputHandler:
     """Mengelola semua input dari keyboard dan mouse."""

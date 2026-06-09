@@ -1,17 +1,9 @@
-"""
-ui/components.py - Reusable UI Components
-===========================================
-Komponen UI digambar menggunakan algoritma grafika manual.
-Styled ala Final Fantasy (panel biru gelap dengan border).
-"""
-
+# Reusable UI Components
 import pygame
 from engine.graphics import GraphicsEngine
 from engine.renderer import COLORS
 
-
 class UIPanel:
-    """Panel UI bergaya Final Fantasy."""
 
     @staticmethod
     def draw(surface, x, y, w, h, alpha=230):
@@ -29,9 +21,7 @@ class UIPanel:
         for cx, cy in [(x+3, y+3), (x+w-3, y+3), (x+3, y+h-3), (x+w-3, y+h-3)]:
             GraphicsEngine.draw_circle(surface, cx, cy, 2, corner_color, fill=True)
 
-
 class HPBar:
-    """HP/MP bar dengan gradient."""
 
     @staticmethod
     def draw(surface, x, y, w, h, ratio, bar_type='hp'):
@@ -50,17 +40,13 @@ class HPBar:
             GraphicsEngine.draw_gradient_rect_fast(surface, x, y, fill_w, h, color1, color2)
         GraphicsEngine.draw_rect(surface, x, y, w, h, COLORS['ui_border'])
 
-
 class MenuItem:
-    """Item dalam menu."""
     def __init__(self, text, value=None, enabled=True):
         self.text = text
         self.value = value
         self.enabled = enabled
 
-
 class MenuList:
-    """List menu dengan cursor selection."""
 
     def __init__(self, items, x, y, w=200, item_height=30):
         self.items = items
@@ -103,9 +89,7 @@ class MenuList:
             text_surf = font.render(item.text, True, color)
             surface.blit(text_surf, (self.x + 25, iy + 4))
 
-
 class DialogBox:
-    """Kotak dialog untuk NPC conversations."""
 
     def __init__(self):
         self.active = False

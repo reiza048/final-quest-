@@ -1,9 +1,4 @@
-"""
-engine/game.py - Main Game State Machine
-==========================================
-Mengelola state game: MAIN_MENU, EXPLORATION, BATTLE, GAME_OVER, VICTORY.
-"""
-
+# Game State Machine
 import pygame
 import sys
 from engine.renderer import Renderer, SCREEN_WIDTH, SCREEN_HEIGHT
@@ -11,9 +6,7 @@ from engine.input_handler import InputHandler
 from engine.audio import AudioManager
 from engine.animation import ScreenTransition
 
-
 class GameState:
-    """Enum untuk state game."""
     MAIN_MENU = 'main_menu'
     EXPLORATION = 'exploration'
     BATTLE = 'battle'
@@ -22,9 +15,7 @@ class GameState:
     DEMO = 'demo'
     CREDITS = 'credits'
 
-
 class Game:
-    """Main game class - mengatur game loop dan state transitions."""
 
     def __init__(self):
         pygame.init()
@@ -53,12 +44,10 @@ class Game:
         self.pending_data = None
 
     def register_state(self, state_name, handler):
-        """Register a state handler."""
         self.state_handlers[state_name] = handler
         handler.game = self
 
     def change_state(self, new_state, transition_type='fade_out', duration=0.4, data=None):
-        """Mulai transisi ke state baru."""
         self.pending_state = new_state
         self.pending_data = data
 
@@ -72,7 +61,6 @@ class Game:
             self._complete_transition()
 
     def _complete_transition(self):
-        """Selesaikan transisi dan pindah ke state baru."""
         old_state = self.state
         self.state = self.pending_state
 
@@ -89,7 +77,6 @@ class Game:
         self.pending_data = None
 
     def run(self):
-        """Main game loop."""
         # Enter initial state
         if self.state in self.state_handlers:
             self.state_handlers[self.state].on_enter(None)
@@ -129,30 +116,23 @@ class Game:
         self.shutdown()
 
     def shutdown(self):
-        """Cleanup dan keluar."""
         self.audio.cleanup()
         pygame.quit()
         sys.exit()
 
-
 class StateHandler:
-    """Base class untuk state handlers."""
 
     def __init__(self):
         self.game = None
 
     def on_enter(self, data):
-        """Dipanggil saat masuk state ini."""
         pass
 
     def on_exit(self):
-        """Dipanggil saat keluar dari state ini."""
         pass
 
     def update(self, dt):
-        """Update logic setiap frame."""
         pass
 
     def render(self, renderer):
-        """Render state ke layar."""
         pass

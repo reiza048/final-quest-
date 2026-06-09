@@ -1,15 +1,8 @@
-"""
-game/battle.py - Turn-Based Battle System
-==========================================
-Sistem pertarungan turn-based ala Final Fantasy.
-"""
-
+# Turn-Based Battle System
 import random
 import math
 
-
 class BattleState:
-    """Sub-states dalam battle."""
     START = 'start'
     PLAYER_TURN = 'player_turn'
     CHOOSE_ACTION = 'choose_action'
@@ -23,9 +16,7 @@ class BattleState:
     FLEE = 'flee'
     ANIMATION = 'animation'
 
-
 class BattleAction:
-    """Satu aksi dalam battle."""
     def __init__(self, action_type, actor, targets=None, spell=None, item=None):
         self.type = action_type  # 'attack', 'magic', 'item', 'defend', 'flee'
         self.actor = actor
@@ -34,9 +25,7 @@ class BattleAction:
         self.item = item
         self.results = []
 
-
 class BattleSystem:
-    """Mengelola logic pertarungan turn-based."""
 
     def __init__(self, party, monsters):
         self.party = party
@@ -72,7 +61,6 @@ class BattleSystem:
         self._calculate_turn_order()
 
     def _calculate_turn_order(self):
-        """Hitung urutan giliran berdasarkan speed."""
         combatants = []
         for m in self.party.get_alive_members():
             combatants.append(('hero', m))
@@ -85,13 +73,11 @@ class BattleSystem:
         self.current_turn_index = 0
 
     def get_current_actor(self):
-        """Get siapa yang sedang giliran."""
         if self.current_turn_index < len(self.turn_order):
             return self.turn_order[self.current_turn_index]
         return None
 
     def next_turn(self):
-        """Pindah ke giliran berikutnya."""
         self.current_turn_index += 1
 
         # Cek apakah semua sudah mendapat giliran
@@ -128,7 +114,6 @@ class BattleSystem:
             self.state = BattleState.ENEMY_TURN
 
     def execute_attack(self, attacker, target):
-        """Hitung damage dari serangan normal."""
         base_damage = attacker.atk * 2 - target.defense
         variance = random.uniform(0.85, 1.15)
         damage = max(1, int(base_damage * variance))
@@ -139,7 +124,6 @@ class BattleSystem:
         return {'damage': actual, 'critical': critical, 'target': target}
 
     def execute_spell(self, caster, spell, targets):
-        """Hitung efek spell."""
         results = []
         if not caster.use_mp(spell.get('mp_cost', 0)):
             return [{'miss': True, 'reason': 'Not enough MP'}]
@@ -181,7 +165,6 @@ class BattleSystem:
         return results
 
     def execute_item(self, user, item, target):
-        """Gunakan item pada target."""
         if item['count'] <= 0:
             return {'miss': True, 'reason': 'No items left'}
 
@@ -205,7 +188,6 @@ class BattleSystem:
         return {'miss': True}
 
     def try_flee(self):
-        """Coba kabur dari battle."""
         if not self.can_flee:
             return False
         # 50% chance to flee, +10% per speed advantage
@@ -215,7 +197,6 @@ class BattleSystem:
         return random.random() < max(0.2, min(0.9, chance))
 
     def _calculate_rewards(self):
-        """Hitung hadiah setelah menang."""
         self.total_exp = sum(m.exp_reward for m in self.monsters)
         self.total_gold = sum(m.gold_reward for m in self.monsters)
         self.party.gold += self.total_gold
@@ -229,7 +210,6 @@ class BattleSystem:
                     self.leveled_up.append(member)
 
     def get_usable_items(self):
-        """Dapatkan items yang bisa dipakai di battle."""
         return [item for item in self.party.inventory if item['count'] > 0]
 
     def get_alive_monsters(self):

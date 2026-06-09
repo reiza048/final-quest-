@@ -1,25 +1,10 @@
-"""
-engine/renderer.py - Rendering Pipeline
-========================================
-Mengelola rendering ke layar, termasuk camera system dan layer management.
-"""
-
 import pygame
-
-
-# ============================================================
-# KONSTANTA GAME
-# ============================================================
 
 SCREEN_WIDTH = 1024
 SCREEN_HEIGHT = 768
 TILE_SIZE = 32
 FPS = 60
 GAME_TITLE = "Final Quest"
-
-# ============================================================
-# PALET WARNA (Final Fantasy Style)
-# ============================================================
 
 COLORS = {
     'black':        (0, 0, 0),
@@ -79,7 +64,6 @@ COLORS = {
     'damage':           (255, 50, 50),
     'exp_gold':         (255, 215, 0),
 }
-
 
 class Renderer:
     """Manages the rendering pipeline."""

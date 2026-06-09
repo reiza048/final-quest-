@@ -1,6 +1,4 @@
-"""
-ui/hud.py - Exploration with smooth movement, party following, interactions.
-"""
+# HUD and Exploration Logic
 import math, pygame
 from engine.game import StateHandler, GameState
 from engine.graphics import GraphicsEngine

@@ -1,13 +1,5 @@
-"""
-engine/audio.py - Audio Manager
-================================
-Mengelola musik latar dan efek suara.
-Menggunakan pygame.mixer untuk playback.
-"""
-
 import pygame
 import os
-
 
 class AudioManager:
     """Mengelola BGM dan SFX."""

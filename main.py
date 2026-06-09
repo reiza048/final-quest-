@@ -1,19 +1,4 @@
-"""
-main.py - Entry Point untuk Final Quest RPG
-=============================================
-Game RPG turn-based bergaya Final Fantasy.
-Proyek Akhir Grafika Komputer dan Multimedia.
-
-Penggunaan:
-    python main.py              # Jalankan game
-    python main.py --demo       # Mode demo algoritma grafika
-
-Kontrol:
-    Arrow Keys / WASD  : Navigasi / Bergerak
-    Enter / Z          : Konfirmasi / Interaksi
-    ESC / X            : Batal / Menu
-"""
-
+# Entry point game Final Quest
 import sys
 import math
 import pygame
@@ -27,13 +12,7 @@ from ui.hud import ExplorationHandler
 from ui.battle_ui import BattleHandler
 from ui.components import UIPanel
 
-
-# ============================================================
-# DEMO MODE - Presentasi Algoritma Grafika
-# ============================================================
-
 class DemoHandler(StateHandler):
-    """Mode demo untuk menampilkan semua algoritma grafika."""
 
     def __init__(self):
         super().__init__()
@@ -125,7 +104,6 @@ class DemoHandler(StateHandler):
                           COLORS['ui_text_dim'], renderer.font_small, center=True)
 
     def _render_lines(self, screen, renderer):
-        """Demo: DDA vs Bresenham line algorithms."""
         renderer.draw_text("Algoritma Garis", SCREEN_WIDTH // 2, 70,
                           COLORS['ui_text_gold'], renderer.font_large, center=True)
 
@@ -186,7 +164,6 @@ class DemoHandler(StateHandler):
             GraphicsEngine.draw_circle(screen, 780, 570, r, (rgb.r, rgb.g, rgb.b), thickness=2)
 
     def _render_curves(self, screen, renderer):
-        """Demo: Bezier and B-Spline curves."""
         renderer.draw_text("Algoritma Kurva (Drag Control Points!)", SCREEN_WIDTH // 2, 70,
                           COLORS['ui_text_gold'], renderer.font_large, center=True)
 
@@ -237,7 +214,6 @@ class DemoHandler(StateHandler):
             GraphicsEngine.draw_circle(screen, int(px), int(py), 5, COLORS['heal'], fill=True)
 
     def _render_fill(self, screen, renderer):
-        """Demo: Fill algorithms."""
         renderer.draw_text("Algoritma Fill Area", SCREEN_WIDTH // 2, 70,
                           COLORS['ui_text_gold'], renderer.font_large, center=True)
 
@@ -297,7 +273,6 @@ class DemoHandler(StateHandler):
             GraphicsEngine.draw_circle(screen, cx2, cy2, r, COLORS['white'])
 
     def _render_transform(self, screen, renderer):
-        """Demo: 2D Transformations."""
         renderer.draw_text("Transformasi 2D (Matriks Homogen 3x3)", SCREEN_WIDTH // 2, 70,
                           COLORS['ui_text_gold'], renderer.font_large, center=True)
 
@@ -365,13 +340,7 @@ class DemoHandler(StateHandler):
             GraphicsEngine.scanline_fill(screen, transformed, (rgb.r, rgb.g, rgb.b))
             GraphicsEngine.draw_polygon(screen, transformed, COLORS['white'])
 
-
-# ============================================================
-# CREDITS SCENE
-# ============================================================
-
 class CreditsHandler(StateHandler):
-    """Credits scene after defeating the boss."""
 
     def __init__(self):
         super().__init__()
@@ -525,13 +494,7 @@ class CreditsHandler(StateHandler):
             renderer.draw_text("Press Enter to skip", SCREEN_WIDTH // 2, SCREEN_HEIGHT - 25,
                               (alpha, alpha, alpha), renderer.font_small, center=True)
 
-
-# ============================================================
-# MAIN
-# ============================================================
-
 def main():
-    """Entry point utama."""
     game = Game()
 
     # Register state handlers
@@ -544,7 +507,6 @@ def main():
 
     # Start game
     game.run()
-
 
 if __name__ == '__main__':
     main()

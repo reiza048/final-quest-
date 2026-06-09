@@ -1,27 +1,12 @@
-"""
-engine/transform.py - Transformasi 2D
-=====================================
-Implementasi transformasi geometri 2D menggunakan matriks homogen 3x3.
-
-Transformasi yang diimplementasikan:
-1. Translasi (pergeseran posisi)
-2. Rotasi (perputaran terhadap titik pusat)
-3. Scaling (perubahan ukuran)
-4. Komposisi transformasi
-"""
-
 import math
 import numpy as np
 import pygame
 
-
 class Transform2D:
     """Transformasi 2D menggunakan matriks homogen 3x3."""
 
-    # ============================================================
-    # MATRIKS TRANSFORMASI
-    # ============================================================
-
+        # MATRIKS TRANSFORMASI
+    
     @staticmethod
     def translation_matrix(tx, ty):
         """
@@ -67,10 +52,8 @@ class Transform2D:
             [0,  0, 1]
         ], dtype=float)
 
-    # ============================================================
-    # OPERASI TRANSFORMASI PADA TITIK
-    # ============================================================
-
+        # OPERASI TRANSFORMASI PADA TITIK
+    
     @staticmethod
     def apply_matrix(points, matrix):
         """
@@ -128,10 +111,8 @@ class Transform2D:
             result = result @ m
         return result
 
-    # ============================================================
-    # TRANSFORMASI SURFACE / SPRITE
-    # ============================================================
-
+        # TRANSFORMASI SURFACE / SPRITE
+    
     @staticmethod
     def transform_surface(surface, angle=0, scale_factor=1.0, flip_x=False, flip_y=False):
         """

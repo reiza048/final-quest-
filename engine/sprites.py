@@ -1,16 +1,5 @@
-"""
-engine/sprites.py - Pixel Art Sprite System
-=============================================
-Membuat sprite pixel art untuk karakter dan monster.
-Menggunakan palette + grid string untuk definisi sprite.
-"""
-
 import pygame
 import math
-
-# ============================================================
-# COLOR PALETTES
-# ============================================================
 
 PALETTES = {
     'warrior': {
@@ -32,10 +21,6 @@ PALETTES = {
         'B': (80,60,40), 'b': (60,45,30), 'W': (200,170,60), 'M': (180,140,120),
     },
 }
-
-# ============================================================
-# CHARACTER SPRITE DATA (16x20, facing down)
-# ============================================================
 
 CHAR_DOWN_STAND = [
     "................",
@@ -151,10 +136,6 @@ CHAR_LEFT_STAND = [
     "................",
     "................",
 ]
-
-# ============================================================
-# MONSTER SPRITE DATA
-# ============================================================
 
 SLIME_PALETTE = {
     '.': None, 'k': (20,40,20), 'G': (80,200,80), 'g': (60,160,60),
@@ -284,7 +265,6 @@ KNIGHT_SPRITE = [
     "..kkkk...kkkk...",
 ]
 
-
 def render_sprite_data(data, palette, scale=2):
     """Convert string-grid sprite data to a pygame Surface."""
     if not data:
@@ -300,7 +280,6 @@ def render_sprite_data(data, palette, scale=2):
     if scale != 1:
         surf = pygame.transform.scale(surf, (w * scale, h * scale))
     return surf
-
 
 class SpriteManager:
     """Manages all game sprites."""

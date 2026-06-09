@@ -1,14 +1,7 @@
-"""
-game/monster.py - Monster Definitions
-=======================================
-Definisi monster dan AI sederhana.
-"""
-
+# Monster Definitions
 import random
 
-
 class Monster:
-    """Satu monster dalam battle."""
 
     def __init__(self, template):
         self.name = template['name']
@@ -29,7 +22,6 @@ class Monster:
         self.sprite_type = template.get('sprite', 'slime')
 
     def take_damage(self, damage, element=None):
-        """Terima damage. Return actual damage."""
         actual_damage = damage
         if element and self.weakness == element:
             actual_damage = int(damage * 1.5)  # Weak = 1.5x damage
@@ -41,7 +33,6 @@ class Monster:
         return actual
 
     def choose_action(self, heroes):
-        """AI: pilih aksi untuk monster."""
         alive_heroes = [h for h in heroes if h.alive]
         if not alive_heroes:
             return None
@@ -65,7 +56,6 @@ class Monster:
         return {'type': 'attack', 'targets': [target]}
 
     def use_mp(self, cost):
-        """Monsters have unlimited MP."""
         return True
 
     def heal(self, amount):
@@ -81,11 +71,6 @@ class Monster:
     @property
     def hp_ratio(self):
         return self.hp / self.max_hp if self.max_hp > 0 else 0
-
-
-# ============================================================
-# MONSTER TEMPLATES
-# ============================================================
 
 MONSTER_TEMPLATES = {
     'slime': {
@@ -151,17 +136,13 @@ MONSTER_TEMPLATES = {
     },
 }
 
-
 def create_monster(monster_type):
-    """Buat instance monster dari template."""
     template = MONSTER_TEMPLATES.get(monster_type)
     if template:
         return Monster(template)
     return Monster(MONSTER_TEMPLATES['slime'])
 
-
 def get_random_encounter(map_type='dungeon', floor=1):
-    """Generate random encounter berdasarkan map dan floor."""
     encounters = {
         'dungeon': {
             1: [['slime'], ['slime', 'slime'], ['goblin']],

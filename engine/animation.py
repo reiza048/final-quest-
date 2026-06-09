@@ -1,14 +1,6 @@
-"""
-engine/animation.py - Sistem Animasi
-=====================================
-Mengelola animasi sprite, efek visual, dan transisi.
-Menggunakan transformasi (translate, rotate, scale) untuk animasi dinamis.
-"""
-
 import math
 import pygame
 from engine.transform import Transform2D
-
 
 class Animation:
     """Animasi dasar dengan frame-based timing."""
@@ -42,7 +34,6 @@ class Animation:
         self.active = True
         self.completed = False
 
-
 class SpriteAnimation:
     """Animasi frame-based untuk sprite sheets."""
 
@@ -66,7 +57,6 @@ class SpriteAnimation:
 
     def get_frame(self):
         return self.frames[self.current_frame]
-
 
 class DamageNumber:
     """Angka damage yang muncul dan naik ke atas lalu menghilang."""
@@ -98,7 +88,6 @@ class DamageNumber:
         if progress > 0.7:
             return int(255 * (1 - (progress - 0.7) / 0.3))
         return 255
-
 
 class ScreenTransition:
     """Efek transisi layar (fade in/out, battle swirl)."""
@@ -144,7 +133,6 @@ class ScreenTransition:
     def is_done(self):
         return self.animation.completed
 
-
 class ParticleEffect:
     """Sistem partikel sederhana untuk efek visual."""
 
@@ -186,7 +174,6 @@ class ParticleEffect:
     @property
     def is_done(self):
         return self.timer.completed
-
 
 class FloatingText:
     """Teks yang mengambang naik (untuk heal, buff, dll)."""

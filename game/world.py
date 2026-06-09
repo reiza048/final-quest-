@@ -1,9 +1,4 @@
-"""
-game/world.py - World Map System (Expanded)
-=============================================
-Tile-based map system dengan peta lebih luas dan interaktif.
-"""
-
+# World Map System
 import random
 from engine.renderer import TILE_SIZE
 
@@ -37,7 +32,6 @@ WALKABLE = {TILE_GRASS, TILE_PATH, TILE_DOOR, TILE_NPC, TILE_CHEST,
             TILE_STAIRS_UP, TILE_BOSS, TILE_SAVE_POINT, TILE_BRIDGE,
             TILE_SIGN, TILE_FOUNTAIN, TILE_SHOP, TILE_FLOWER}
 
-
 class GameMap:
     def __init__(self, name, width, height, tiles, npcs=None, encounters=True, floor=1):
         self.name = name
@@ -62,9 +56,7 @@ class GameMap:
             return False
         return random.random() < 0.07
 
-
 def create_town_map():
-    """Create larger town map (48x36)."""
     W, H = 48, 36
     tiles = [[TILE_GRASS for _ in range(W)] for _ in range(H)]
 
@@ -266,9 +258,7 @@ def create_town_map():
 
     return GameMap('Crystal Village', W, H, tiles, npcs, encounters=False)
 
-
 def create_dungeon_maps():
-    """Create 3-floor dungeon."""
     dungeons = []
     W, H = 40, 30
 
@@ -356,7 +346,6 @@ def create_dungeon_maps():
     dungeons.append(GameMap('Dragon Lair', W, H, t3, encounters=False, floor=3))
 
     return dungeons
-
 
 class WorldManager:
     def __init__(self):

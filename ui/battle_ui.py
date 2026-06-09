@@ -1,6 +1,4 @@
-"""
-ui/battle_ui.py - FF-Style Battle UI (fixed)
-"""
+# Battle UI logic
 import pygame, math, random
 from engine.game import StateHandler, GameState
 from engine.graphics import GraphicsEngine

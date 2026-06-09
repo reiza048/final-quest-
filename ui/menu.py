@@ -1,9 +1,4 @@
-"""
-ui/menu.py - Main Menu Handler
-================================
-State handler untuk main menu dan game over screen.
-"""
-
+# Main Menu Handler
 import math
 import pygame
 from engine.game import StateHandler, GameState
@@ -12,9 +7,7 @@ from engine.renderer import COLORS, SCREEN_WIDTH, SCREEN_HEIGHT
 from engine.transform import Transform2D
 from ui.components import UIPanel, MenuList, MenuItem
 
-
 class MainMenuHandler(StateHandler):
-    """Handler untuk state MAIN_MENU."""
 
     def __init__(self):
         super().__init__()
@@ -24,7 +17,6 @@ class MainMenuHandler(StateHandler):
         self._init_stars()
 
     def _init_stars(self):
-        """Generate background stars."""
         import random
         self.stars = []
         for _ in range(80):
@@ -157,9 +149,7 @@ class MainMenuHandler(StateHandler):
                           SCREEN_WIDTH // 2, SCREEN_HEIGHT - 20,
                           (80, 80, 120), renderer.font_small, center=True)
 
-
 class GameOverHandler(StateHandler):
-    """Handler untuk GAME_OVER screen."""
 
     def __init__(self):
         super().__init__()

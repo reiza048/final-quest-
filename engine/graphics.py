@@ -1,27 +1,8 @@
-"""
-engine/graphics.py - Implementasi Manual Algoritma Grafika Komputer
-==================================================================
-Semua algoritma grafika diimplementasikan dari nol (from scratch)
-hanya menggunakan set_at() untuk pixel plotting.
-
-Algoritma:
-1. Garis: DDA, Bresenham
-2. Kurva: Bezier (De Casteljau), B-Spline
-3. Fill: Flood Fill, Scanline Fill
-4. Lingkaran: Midpoint Circle Algorithm
-5. Visual Attributes: Warna, Ketebalan, Style (solid/dashed/dotted)
-"""
-
+# Custom Graphics Engine
 import pygame
 import math
 
-
 class GraphicsEngine:
-    """Engine grafika dengan implementasi algoritma manual."""
-
-    # ============================================================
-    # PIXEL PLOTTING DASAR
-    # ============================================================
 
     @staticmethod
     def put_pixel(surface, x, y, color):
@@ -41,18 +22,8 @@ class GraphicsEngine:
                 for dy in range(-half, half + 1):
                     GraphicsEngine.put_pixel(surface, x + dx, y + dy, color)
 
-    # ============================================================
-    # 1. ALGORITMA GARIS
-    # ============================================================
-
     @staticmethod
     def draw_line_dda(surface, x1, y1, x2, y2, color, thickness=1):
-        """
-        Algoritma DDA (Digital Differential Analyzer).
-
-        Prinsip: Hitung increment dx/dy, iterasi sepanjang sumbu terpanjang
-        menggunakan floating point arithmetic.
-        """
         dx = x2 - x1
         dy = y2 - y1
         steps = max(abs(dx), abs(dy))
@@ -71,12 +42,6 @@ class GraphicsEngine:
 
     @staticmethod
     def draw_line_bresenham(surface, x1, y1, x2, y2, color, thickness=1):
-        """
-        Algoritma Bresenham untuk menggambar garis.
-
-        Prinsip: Hanya menggunakan operasi integer (tambah & kurang)
-        untuk efisiensi maksimal.
-        """
         x1, y1, x2, y2 = int(x1), int(y1), int(x2), int(y2)
         dx = abs(x2 - x1)
         dy = abs(y2 - y1)
@@ -96,10 +61,6 @@ class GraphicsEngine:
                 err += dx
                 y1 += sy
 
-    # ============================================================
-    # 2. ALGORITMA KURVA
-    # ============================================================
-
     @staticmethod
     def _bezier_point(control_points, t):
         """Hitung titik Bezier menggunakan algoritma De Casteljau."""
@@ -113,10 +74,6 @@ class GraphicsEngine:
 
     @staticmethod
     def draw_bezier(surface, control_points, color, segments=100, thickness=1):
-        """
-        Kurva Bezier menggunakan algoritma De Casteljau.
-        control_points: list of (x, y) tuples
-        """
         if len(control_points) < 2:
             return
         prev = control_points[0]
@@ -166,16 +123,8 @@ class GraphicsEngine:
                 )
             prev = curr
 
-    # ============================================================
-    # 3. FILL AREA
-    # ============================================================
-
     @staticmethod
     def flood_fill(surface, x, y, fill_color):
-        """
-        Flood Fill iteratif menggunakan stack.
-        Mengganti semua pixel yang sama warnanya dengan pixel target.
-        """
         x, y = int(x), int(y)
         if x < 0 or x >= surface.get_width() or y < 0 or y >= surface.get_height():
             return
@@ -201,10 +150,6 @@ class GraphicsEngine:
 
     @staticmethod
     def scanline_fill(surface, polygon_points, color):
-        """
-        Scanline Fill untuk mengisi polygon.
-        Untuk setiap scanline, cari intersection lalu fill di antara pasangan.
-        """
         if len(polygon_points) < 3:
             return
         min_y = int(min(p[1] for p in polygon_points))
@@ -227,10 +172,6 @@ class GraphicsEngine:
                 x_end = int(math.floor(intersections[i + 1]))
                 for x in range(x_start, x_end + 1):
                     GraphicsEngine.put_pixel(surface, x, y, color)
-
-    # ============================================================
-    # 4. LINGKARAN (Midpoint Circle Algorithm)
-    # ============================================================
 
     @staticmethod
     def draw_circle(surface, cx, cy, radius, color, thickness=1, fill=False):
@@ -259,10 +200,6 @@ class GraphicsEngine:
                 y -= 1
                 d += 2 * (x - y) + 1
             _plot8(cx, cy, x, y)
-
-    # ============================================================
-    # 5. VISUAL ATTRIBUTES (Style, Ketebalan)
-    # ============================================================
 
     @staticmethod
     def draw_dashed_line(surface, x1, y1, x2, y2, color, dash=8, gap=4, thickness=1):
@@ -346,10 +283,6 @@ class GraphicsEngine:
             x1, y1 = points[i]
             x2, y2 = points[(i + 1) % n]
             GraphicsEngine.draw_line_bresenham(surface, x1, y1, x2, y2, color, thickness)
-
-    # ============================================================
-    # HELPER - Pygame-accelerated versions for performance
-    # ============================================================
 
     @staticmethod
     def fast_fill_rect(surface, x, y, w, h, color):
